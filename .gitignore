@@ -55,3 +55,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Project
+/startStrategyMy.py
+/data_my.py
+/strategy_my.py
+
