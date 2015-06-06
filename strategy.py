@@ -20,7 +20,7 @@ class Strategy(object):
         self.__balanceStart = balanceStart
         self.__balance = balanceStart
         self.__bankruptcyAt = bankruptcyAt
-        self.__bankruptcyDate = None
+        self.__bankruptcyDate = 0
         self.__balanceTarget = balanceTarget
         self.__multiplier = multiplier
         self.__transactionCosts = transactionCosts
@@ -98,7 +98,7 @@ class Strategy(object):
     def __setBankruptcyDate(self, bar):
         if self.__bankruptcyDate is 0:
             if (self.__balance < self.__bankruptcyAt):
-                self.__bankruptcyDate = bar['date']
+                self.__bankruptcyDate = bar['datetime']
 
     def getMaxConsecutiveLossCount(self):
         lossCount = 0
