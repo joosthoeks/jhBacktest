@@ -230,15 +230,23 @@ class Strategy(object):
         )
 
     def getProfitCount(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return len(self.__profitValuesArr)
 
     def getProfitValue(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return sum(self.__profitValuesArr)
 
     def getProfitValueMin(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return min(self.__profitValuesArr)
 
     def getProfitValueMax(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return max(self.__profitValuesArr)
 
     def getProfitValueAverage(self):
@@ -247,9 +255,13 @@ class Strategy(object):
         return sum(self.__profitValuesArr) / float(len(self.__profitValuesArr))
 
     def getLossCount(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return len(self.__lossValuesArr)
 
     def getLossValue(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return sum(self.__lossValuesArr)
 
     def getLossValueMin(self):
