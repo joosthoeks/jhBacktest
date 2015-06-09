@@ -258,6 +258,8 @@ class Strategy(object):
         return min(self.__lossValuesArr)
 
     def getLossValueMax(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return max(self.__lossValuesArr)
 
     def getLossValueAverage(self):
