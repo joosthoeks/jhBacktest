@@ -14,11 +14,11 @@ class StrategyExample(Strategy):
         Strategy.__init__(self, bars, balanceStart, bankruptcyAt, balanceTarget,
             multiplier, transactionCosts, slippage)
 
-        self.__sma = ta.SMA(self._barsNP['close'], timeperiod)
+        self.__indicator = ta.SMA(self._barsNP['close'], timeperiod)
 
     def _onBars(self, bar):
         # Wait for enough bars to be available to calculate SMA
-        if (np.isnan(self.__sma[self.getBarIndex()])):
+        if (np.isnan(self.__indicator[self.getBarIndex()])):
             print (('%s is nan o: %s' % (bar['datetime'], bar['open'])))
             return
 
@@ -39,13 +39,13 @@ class StrategyExample(Strategy):
                 self._exitShortPos(bar)
 
         # current bar:
-        print (('%s o: %s h: %s l: %s c: %s sma: %s' %
+        print (('%s o: %s h: %s l: %s c: %s i: %s' %
         (bar['datetime'],
             self._getFormatStr(bar['open']),
             self._getFormatStr(bar['high']),
             self._getFormatStr(bar['low']),
             self._getFormatStr(bar['close']),
-            self._getFormatStr(self.__sma[self.getBarIndex()])
+            self._getFormatStr(self.__indicator[self.getBarIndex()])
         )))
 
         # check and do long signals:
@@ -65,14 +65,14 @@ class StrategyExample(Strategy):
                 self._enterShortSignal(bar)
 
     def __checkEnterLongSignal(self, bar):
-        return (bar['close'] > self.__sma[self.getBarIndex()])
+        return (bar['close'] > self.__indicator[self.getBarIndex()])
 
     def __checkExitLongSignal(self, bar):
-        return (bar['close'] < self.__sma[self.getBarIndex()])
+        return (bar['close'] < self.__indicator[self.getBarIndex()])
 
     def __checkEnterShortSignal(self, bar):
-        return (bar['close'] < self.__sma[self.getBarIndex()])
+        return (bar['close'] < self.__indicator[self.getBarIndex()])
 
     def __checkExitShortSignal(self, bar):
-        return (bar['close'] > self.__sma[self.getBarIndex()])
+        return (bar['close'] > self.__indicator[self.getBarIndex()])
 
