@@ -17,7 +17,7 @@ balanceTarget = 25000
 multiplier = 200  # normal 200 for mini 20
 transactionCosts = 2.9  # normal: 2.9 for mini: .5
 slippage = 0
-smaPeriod = 25
+timeperiod = 25
 
 stratExam = StrategyExample(
     bars,
@@ -27,7 +27,7 @@ stratExam = StrategyExample(
     multiplier,
     transactionCosts,
     slippage,
-    smaPeriod
+    timeperiod
 )
 stratExam.run()
 print (('####################################################################'))
@@ -39,7 +39,7 @@ print (('balanceTarget: %s' % balanceTarget))
 print (('multiplier: %s' % multiplier))
 print (('transactionCosts: %s' % transactionCosts))
 print (('slippage: %s' % slippage))
-print (('smaPeriod: %s' % smaPeriod))
+print (('timeperiod: %s' % timeperiod))
 print (('####################################################################'))
 print (('Result (buy & hold): € %s' % stratExam.getResultBuyAndHoldEuro()))
 print (('Result (buy & hold): %% %s' % stratExam.getResultBuyAndHoldProcent()))

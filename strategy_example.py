@@ -9,12 +9,12 @@ import talib as ta
 class StrategyExample(Strategy):
 
     def __init__(self, bars, balanceStart, bankruptcyAt, balanceTarget,
-        multiplier, transactionCosts, slippage, smaPeriod):
+        multiplier, transactionCosts, slippage, timeperiod):
 
         Strategy.__init__(self, bars, balanceStart, bankruptcyAt, balanceTarget,
             multiplier, transactionCosts, slippage)
 
-        self.__sma = ta.SMA(self._barsNP['close'], smaPeriod)
+        self.__sma = ta.SMA(self._barsNP['close'], timeperiod)
 
     def _onBars(self, bar):
         # Wait for enough bars to be available to calculate SMA
