@@ -125,6 +125,8 @@ class Strategy(object):
         return min(lossValueArr)
 
     def getRiskOfRuin(self):
+        if self.getLossValueAverage() == 0:
+            return 'nan'
         edge = self.getHitrate() - 50
         capitalUnits = ((
             (self.__balanceStart - self.__bankruptcyAt)
@@ -132,6 +134,8 @@ class Strategy(object):
         return ((1 - edge) / (1 + edge)) ** round(capitalUnits)
 
     def getRiskOfRuinFixedPositionSize(self):
+        if self.getStandardDeviationProcent() == 0:
+            return 'nan'
         e = 2.71828
         a = self.getAverageResultPerTradeProcent() / 100
         z = (float(self.__balanceStart - self.__bankruptcyAt) 
@@ -140,6 +144,8 @@ class Strategy(object):
         return (e ** - (2 * a * z / d ** 2)) * 100
 
     def getRiskOfRuinFixedFractionalPositionSizing(self):
+        if self.getStandardDeviationProcent() == 0:
+            return 'nan'
         e = 2.71828
         a = self.getAverageResultPerTradeProcent() / 100
         z = (float(self.__balanceStart - self.__bankruptcyAt) 
@@ -232,6 +238,8 @@ class Strategy(object):
         return max(self.__profitValuesArr)
 
     def getProfitValueAverage(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return sum(self.__profitValuesArr) / float(len(self.__profitValuesArr))
 
     def getLossCount(self):
@@ -247,6 +255,8 @@ class Strategy(object):
         return max(self.__lossValuesArr)
 
     def getLossValueAverage(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return sum(self.__lossValuesArr) / float(len(self.__lossValuesArr))
 
     def __resultLong(self):
