@@ -61,4 +61,5 @@ target/
 /data_my.py
 /strategy_my.py
 *~
+*.swp
 
