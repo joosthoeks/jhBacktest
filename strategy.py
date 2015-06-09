@@ -249,6 +249,8 @@ class Strategy(object):
         return sum(self.__lossValuesArr)
 
     def getLossValueMin(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return min(self.__lossValuesArr)
 
     def getLossValueMax(self):
