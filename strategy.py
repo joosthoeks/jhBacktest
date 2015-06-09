@@ -208,6 +208,8 @@ class Strategy(object):
         return (float(self.getProfitCount()) / self.getTotalCount() * 100)
 
     def getWsIndex(self):
+        if self.getLossValueMin() == 0:
+            return 'nan'
         return (
             (
                 10000. * self.getAverageResultPerTradeEuro()
@@ -217,6 +219,8 @@ class Strategy(object):
         )
 
     def getRinaIndex(self):
+        if self.getLossValueAverage() == 0:
+            return 'nan'
         return (
             (
                 self.getResultEuro()
