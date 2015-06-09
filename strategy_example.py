@@ -14,7 +14,8 @@ class StrategyExample(Strategy):
         Strategy.__init__(self, bars, balanceStart, bankruptcyAt, balanceTarget,
             multiplier, transactionCosts, slippage)
 
-        self.__indicator = ta.SMA(self._barsNP['close'], timeperiod)
+#        self.__indicator = ta.SMA(self._barsNP['close'], timeperiod)
+        self.__indicator = ta.MOM(self._barsNP['close'], timeperiod)
 
     def _onBars(self, bar):
         # Wait for enough bars to be available to calculate SMA
@@ -65,14 +66,18 @@ class StrategyExample(Strategy):
                 self._enterShortSignal(bar)
 
     def __checkEnterLongSignal(self, bar):
-        return (bar['close'] > self.__indicator[self.getBarIndex()])
+#        return (bar['close'] > self.__indicator[self.getBarIndex()])
+        return (self.__indicator[self.getBarIndex()] > 0)
 
     def __checkExitLongSignal(self, bar):
-        return (bar['close'] < self.__indicator[self.getBarIndex()])
+#        return (bar['close'] < self.__indicator[self.getBarIndex()])
+        return (self.__indicator[self.getBarIndex()] < 0)
 
     def __checkEnterShortSignal(self, bar):
-        return (bar['close'] < self.__indicator[self.getBarIndex()])
+#        return (bar['close'] < self.__indicator[self.getBarIndex()])
+        return (self.__indicator[self.getBarIndex()] < 0)
 
     def __checkExitShortSignal(self, bar):
-        return (bar['close'] > self.__indicator[self.getBarIndex()])
+#        return (bar['close'] > self.__indicator[self.getBarIndex()])
+        return (self.__indicator[self.getBarIndex()] > 0)
 
