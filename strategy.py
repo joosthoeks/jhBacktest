@@ -148,6 +148,8 @@ class Strategy(object):
         return (e ** - ((2 * a / d) * math.log(1 - z) / math.log(1 - d))) * 100
 
     def getGamblerRuinProblemUsingMarkovChains(self):
+        if self.getHitrate() == 50:
+            return 'nan'
         edge = (self.getHitrate() - 50) / 100
         q = .5 - edge
         p = .5 + edge
