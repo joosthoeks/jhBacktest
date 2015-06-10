@@ -2,6 +2,8 @@
 
 import numpy as np
 import math
+import scipy as sp
+from scipy import stats
 
 
 class Strategy(object):
