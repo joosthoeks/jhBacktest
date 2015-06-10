@@ -186,19 +186,7 @@ class Strategy(object):
         )
 
     def getStandardDeviationEuro(self):
-        deviationsArr = []
-        for result in self.__totalValuesArr:
-            deviationsArr.append(result - self.getAverageResultPerTradeEuro())
-
-        squareArr = []
-        for deviation in deviationsArr:
-            squareArr.append(deviation * deviation)
-
-        averageSquare = sum(squareArr) / float(len(squareArr))
-
-        standardDeviation = math.sqrt(averageSquare)
-
-        return standardDeviation
+        return sp.std(self.__totalValuesArr)
 
     def getStandardDeviationProcent(self):
         return (
@@ -254,7 +242,7 @@ class Strategy(object):
     def getProfitValueAverage(self):
         if len(self.__profitValuesArr) == 0:
             return 0
-        return sum(self.__profitValuesArr) / float(len(self.__profitValuesArr))
+        return sp.mean(self.__profitValuesArr)
 
     def getLossCount(self):
         if len(self.__lossValuesArr) == 0:
@@ -279,7 +267,7 @@ class Strategy(object):
     def getLossValueAverage(self):
         if len(self.__lossValuesArr) == 0:
             return 0
-        return sum(self.__lossValuesArr) / float(len(self.__lossValuesArr))
+        return sp.mean(self.__lossValuesArr)
 
     def __resultLong(self):
         result = 0
