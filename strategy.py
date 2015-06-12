@@ -65,14 +65,14 @@ class Strategy(object):
             self._posBuyAndHoldStart = bar['open']
         self._posBuyAndHoldEnd = bar['close']
 
-    def getResultBuyAndHoldEuro(self):
+    def getResultBuyAndHoldValue(self):
         result = self._posBuyAndHoldEnd - self._posBuyAndHoldStart
         result = self.__addMultiplierTransactionCostsSlippage(result)
         return result
 
     def getResultBuyAndHoldProcent(self):
         return (
-            float(self.getResultBuyAndHoldEuro()) / self.__balanceStart * 100
+            float(self.getResultBuyAndHoldValue()) / self.__balanceStart * 100
             )
 
     def getBarIndex(self):
@@ -162,37 +162,49 @@ class Strategy(object):
         q = .5 - edge
         p = .5 + edge
 #        z = self.__balanceStart
-        z = round(self.__balanceStart / self.getAverageResultPerTradeEuro())
+        z = round(self.__balanceStart / self.getAverageResultPerTradeValue())
 #        m = self.__balanceTarget
-        m = round(self.__balanceTarget / self.getAverageResultPerTradeEuro())
+        m = round(self.__balanceTarget / self.getAverageResultPerTradeValue())
         return (((q / p) ** m - (q / p) ** z) / ((q / p) ** m - 1)) * 100
         
     def getTotalCount(self):
         return len(self.__totalValuesArr)
 
-    def getResultEuro(self):
+    def getResultValue(self):
         return sum(self.__totalValuesArr)
 
     def getResultProcent(self):
-        return (float(self.getResultEuro()) / self.__balanceStart * 100)
+        return (float(self.getResultValue()) / self.__balanceStart * 100)
 
-    def getAverageResultPerTradeEuro(self):
-        return (float(self.getResultEuro()) / self.getTotalCount())
+    def getAverageResultPerTradeValue(self):
+        return sp.mean(self.__totalValuesArr)
 
     def getAverageResultPerTradeProcent(self):
         return (
-            float(self.getAverageResultPerTradeEuro()) 
+            float(self.getAverageResultPerTradeValue())
             / self.__balanceStart * 100
         )
 
-    def getStandardDeviationEuro(self):
+    def getVarianceValue(self):
+        return sp.var(self.__totalValuesArr)
+
+    def getVarianceProcent(self):
+        return (float(self.getVarianceValue()) / self.__balanceStart * 100)
+
+    def getStandardDeviationValue(self):
         return sp.std(self.__totalValuesArr)
 
     def getStandardDeviationProcent(self):
         return (
-            float(self.getStandardDeviationEuro())
+            float(self.getStandardDeviationValue())
             / self.__balanceStart * 100
         )
+
+    def getMedianValue(self):
+        return sp.median(self.__totalValuesArr)
+
+    def getMedianProcent(self):
+        return (float(self.getMedianValue()) / self.__balanceStart * 100)
 
     def getHitrate(self):
         return (float(self.getProfitCount()) / self.getTotalCount() * 100)
@@ -202,7 +214,7 @@ class Strategy(object):
             return 'nan'
         return (
             (
-                10000. * self.getAverageResultPerTradeEuro()
+                10000. * self.getAverageResultPerTradeValue()
             ) / (
                 self.getLossValueMin() * self.getProcentInMarket()
             )
@@ -213,7 +225,7 @@ class Strategy(object):
             return 'nan'
         return (
             (
-                self.getResultEuro()
+                self.getResultValue()
             ) / (
                 self.getLossValueAverage() * self.getProcentInMarket()
             )
@@ -244,6 +256,21 @@ class Strategy(object):
             return 0
         return sp.mean(self.__profitValuesArr)
 
+    def getProfitValueVariance(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
+        return sp.var(self.__profitValuesArr)
+
+    def getProfitValueStandardDeviation(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
+        return sp.std(self.__profitValuesArr)
+
+    def getProfitValueMedian(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
+        return sp.median(self.__profitValuesArr)
+        
     def getLossCount(self):
         if len(self.__lossValuesArr) == 0:
             return 0
@@ -269,6 +296,21 @@ class Strategy(object):
             return 0
         return sp.mean(self.__lossValuesArr)
 
+    def getLossValueVariance(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
+        return sp.var(self.__lossValuesArr)
+
+    def getLossValueStandardDeviation(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
+        return sp.std(self.__lossValuesArr)
+
+    def getLossValueMedian(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
+        return sp.median(self.__lossValuesArr)
+        
     def __resultLong(self):
         result = 0
         if self.__longPosStart is not 0 and self.__longPosEnd is not 0:
