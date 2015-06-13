@@ -212,11 +212,13 @@ class Strategy(object):
     def getWsIndex(self):
         if self.getLossMinValue() == 0:
             return 'nan'
+
+        maxLoss = self.getLossMinValue() * -1
         return (
             (
                 10000. * self.getTotalAverageValue()
             ) / (
-                self.getLossMinValue() * self.getProcentInMarket()
+                maxLoss * self.getProcentInMarket()
             )
         )
 
