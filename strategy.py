@@ -225,11 +225,13 @@ class Strategy(object):
     def getRinaIndex(self):
         if self.getLossAverageValue() == 0:
             return 'nan'
+
+        avgLoss = self.getLossAverageValue() * -1
         return (
             (
                 self.getTotalValue()
             ) / (
-                self.getLossAverageValue() * self.getProcentInMarket()
+                avgLoss * self.getProcentInMarket()
             )
         )
 
