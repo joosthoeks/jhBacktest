@@ -62,4 +62,5 @@ target/
 /strategy_my.py
 *~
 *.swp
+*.csv
 
