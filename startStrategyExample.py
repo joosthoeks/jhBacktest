@@ -4,14 +4,13 @@ from data import *
 from strategy_example import StrategyExample
 
 from datetime import datetime as dt
-#import time
-
 
 
 dateStart = '2013-01-01'
 dateEnd = dt.strftime(dt.utcnow(), '%Y-%m-%d')
 bars = getDataYahoo(dateStart, dateEnd, '^AEX')
 #bars = getDataCsv('data.csv')
+#bars = getDataDb('dbHost', 'dbUser', 'dbPass', 'dbName', 'dbTable', dateStart, dateEnd)
 balanceStart = 12500  # normal 12500 for mini 1250
 bankruptcyAt = 7500  # normal: 7500 for mini: 750
 balanceTarget = 25000

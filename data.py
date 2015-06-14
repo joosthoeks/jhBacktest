@@ -3,6 +3,7 @@
 from yahoo_finance import Share
 from datetime import datetime as dt
 import csv
+import MySQLdb
 
 
 def getDataYahoo(dateStart, dateEnd, symbol='^AEX'):
@@ -50,6 +51,38 @@ def getDataCsv(filename):
                 'close': float(row['close']),
                 'volume': int(row['volume'])
                 })
+
+    return data
+
+
+def getDataDb(dbHost, dbUser, dbPass, dbName, dbTable, dateStart, dateEnd):
+    db = MySQLdb.connect(host=dbHost,
+        user=dbUser,
+        passwd=dbPass,
+        db=dbName)
+
+    cur = db.cursor()
+
+    sql = """
+    SELECT *
+    FROM """ + dbTable + """
+    WHERE (date BETWEEN '""" + dateStart + """' AND '""" + dateEnd + """')
+    """
+
+    cur.execute(sql)
+
+    dataOrg = cur.fetchall()
+
+    data = []
+    for v in dataOrg:
+        data.append({
+            'datetime': v[1],
+            'open': float(v[2]),
+            'high': float(v[3]),
+            'low': float(v[4]),
+            'close': float(v[5]),
+            'volume': int(v[6])
+            })
 
     return data
 
