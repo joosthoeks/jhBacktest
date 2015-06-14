@@ -2,6 +2,7 @@
 
 from yahoo_finance import Share
 from datetime import datetime as dt
+import csv
 
 
 def getDataYahoo(dateStart, dateEnd, symbol='^AEX'):
@@ -32,3 +33,23 @@ def getDataYahoo(dateStart, dateEnd, symbol='^AEX'):
         })
 
     return data
+
+
+def getDataCsv(filename):
+    
+    data = []
+
+    with open(filename) as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            data.append({
+                'datetime': row['datetime'],
+                'open': float(row['open']),
+                'high': float(row['high']),
+                'low': float(row['low']),
+                'close': float(row['close']),
+                'volume': int(row['volume'])
+                })
+
+    return data
+

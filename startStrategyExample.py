@@ -11,6 +11,7 @@ from datetime import datetime as dt
 dateStart = '2013-01-01'
 dateEnd = dt.strftime(dt.utcnow(), '%Y-%m-%d')
 bars = getDataYahoo(dateStart, dateEnd, '^AEX')
+#bars = getDataCsv('data.csv')
 balanceStart = 12500  # normal 12500 for mini 1250
 bankruptcyAt = 7500  # normal: 7500 for mini: 750
 balanceTarget = 25000
