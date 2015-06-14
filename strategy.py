@@ -36,6 +36,7 @@ class Strategy(object):
         self.__totalValuesArr = []
         self.__profitValuesArr = []
         self.__lossValuesArr = []
+        self.__dailyDrawdownArr = []
 
     def __getNumpyBars(self, bars):
         datetimeArr = []
@@ -94,15 +95,32 @@ class Strategy(object):
     def getProcentInMarket(self):
         return (float(self.getBarsInMarket()) / self.getBarsTotal() * 100)
 
+    def getMaxDailyDrawdownValue(self):
+        if len(self.__dailyDrawdownArr) == 0:
+            return 0
+        return max(self.__dailyDrawdownArr) * -1
+
+    def __setDailyDrawdown(self, bar):
+        if self._longPos:
+            dailyDrawdown = (bar['open'] - bar['low']) * self.__multiplier
+            self.__dailyDrawdownArr.append(dailyDrawdown)
+        if self._shortPos:
+            dailyDrawdown = (bar['high'] - bar['open']) * self.__multiplier
+            self.__dailyDrawdownArr.append(dailyDrawdown)
+
     def getBankruptcyDate(self):
         return self.__bankruptcyDate
 
     def __setBankruptcyDate(self, bar):
         if self.__bankruptcyDate is 0:
+            diff = self.__balanceStart - self.__bankruptcyAt
+            if (self.getMaxDailyDrawdownValue() > diff):
+                self.__bankruptcyDate = bar['datetime']
+        if self.__bankruptcyDate is 0:
             if (self.__balance < self.__bankruptcyAt):
                 self.__bankruptcyDate = bar['datetime']
 
-    def getMaxConsecutiveLossCount(self):
+    def getMaxConsecutiveDrawdownCount(self):
         lossCount = 0
         lossCountArr = []
         for value in self.__totalValuesArr:
@@ -114,7 +132,7 @@ class Strategy(object):
                 
         return max(lossCountArr)
 
-    def getMaxConsecutiveLossValue(self):
+    def getMaxConsecutiveDrawdownValue(self):
         lossValue = 0
         lossValueArr = []
         for value in self.__totalValuesArr:
@@ -406,5 +424,6 @@ class Strategy(object):
             self.__resultLong()
             self.__resultShort()
             self.__setBarsInMarket()
+            self.__setDailyDrawdown(bar)
             self.__setBankruptcyDate(bar)
 
