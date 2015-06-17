@@ -4,6 +4,7 @@ import numpy as np
 import math
 import scipy as sp
 from scipy import stats
+from tabulate import tabulate
 
 
 class Strategy(object):
@@ -193,6 +194,16 @@ class Strategy(object):
 
     def getTotalProcent(self):
         return (float(self.getTotalValue()) / self.__balanceStart * 100)
+
+    def getTotalMinValue(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
+        return min(self.__totalValuesArr)
+
+    def getTotalMaxValue(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
+        return max(self.__totalValuesArr)
 
     def getTotalAverageValue(self):
         return sp.mean(self.__totalValuesArr)
@@ -426,4 +437,20 @@ class Strategy(object):
             self.__setBarsInMarket()
             self.__setDailyDrawdown(bar)
             self.__setBankruptcyDate(bar)
+
+    def getAnalysis(self):
+        table = [
+#            ['Trades', self.getProfitCount(), self.getLossCount()],
+            [u'Total result €', self.getTotalValue(), self.getProfitValue(), self.getLossValue()],
+            [u'Max result €', self.getTotalMaxValue(), self.getProfitMaxValue(), self.getLossMinValue()],
+            [u'Min result €', self.getTotalMinValue(), self.getProfitMinValue(), self.getLossMaxValue()],
+            [u'Average €', self.getTotalAverageValue(), self.getProfitAverageValue(), self.getLossAverageValue()],
+            [u'Median €', self.getTotalMedianValue(), self.getProfitMedianValue(), self.getLossMedianValue()],
+            [u'Variance €', self.getTotalVarianceValue(), self.getProfitVarianceValue(), self.getLossVarianceValue()],
+            [u'Standard Deviation €', self.getTotalStandardDeviationValue(), self.getProfitStandardDeviationValue(), self.getLossStandardDeviationValue()]
+        ]
+        headers = ['', 'Total trades %s' % self.getTotalCount(), 'Profit trades %s' % self.getProfitCount(), 'Loss trades %s' % self.getLossCount()]
+
+        print tabulate(table, headers, tablefmt='rst', floatfmt='.4f')
+
 
