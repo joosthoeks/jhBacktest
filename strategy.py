@@ -439,8 +439,34 @@ class Strategy(object):
             self.__setBankruptcyDate(bar)
 
     def getAnalysis(self):
+        print (('Result (buy & hold): € %s' % self.getResultBuyAndHoldValue()))
+        print (('Result (buy & hold): %% %s' % self.getResultBuyAndHoldProcent()))
+        print (('####################################################################'))
+        print (('Total bars: %s' % self.getBarsTotal()))
+        print (('In market bars: %s' % self.getBarsInMarket()))
+        print (('In market: %% %s' % self.getProcentInMarket()))
+        print (('####################################################################'))
+        print (('Total result: %% %s' % self.getTotalProcent()))
+        print (('Average: %% %s' % self.getTotalAverageProcent()))
+        print (('Median: %% %s' % self.getTotalMedianProcent()))
+        print (('Variance: %% %s' % self.getTotalVarianceProcent()))
+        print (('Standard Deviation: %% %s' % self.getTotalStandardDeviationProcent()))
+        print (('Hitrate: %% %s' % self.getHitrate()))
+        print (('####################################################################'))
+        print (('Bankruptcy date: %s' % self.getBankruptcyDate()))
+        print (('Max daily drawdown value: %s' % self.getMaxDailyDrawdownValue()))
+        print (('Consecutive drawdown count: %s' % self.getMaxConsecutiveDrawdownCount()))
+        print (('Consecutive drawdown value: %s' % self.getMaxConsecutiveDrawdownValue()))
+        print (('####################################################################'))
+        print (('Risk of Ruin: %s' % self.getRiskOfRuin()))
+        print (('Risk of Ruin fixed position size: %% %s' % self.getRiskOfRuinFixedPositionSize()))
+        print (('Risk of Ruin fixed fraction position sizing: %% %s' % self.getRiskOfRuinFixedFractionalPositionSizing()))
+        print (('Gambler Ruin problem using Markov Chains: %% %s' % self.getGamblerRuinProblemUsingMarkovChains()))
+        print (('####################################################################'))
+        print (('WS Index: %s' % self.getWsIndex()))
+        print (('RINA Index: %s' % self.getRinaIndex()))
+        print (('####################################################################'))
         table = [
-#            ['Trades', self.getProfitCount(), self.getLossCount()],
             [u'Total result €', self.getTotalValue(), self.getProfitValue(), self.getLossValue()],
             [u'Max result €', self.getTotalMaxValue(), self.getProfitMaxValue(), self.getLossMinValue()],
             [u'Min result €', self.getTotalMinValue(), self.getProfitMinValue(), self.getLossMaxValue()],
@@ -449,6 +475,7 @@ class Strategy(object):
             [u'Variance €', self.getTotalVarianceValue(), self.getProfitVarianceValue(), self.getLossVarianceValue()],
             [u'Standard Deviation €', self.getTotalStandardDeviationValue(), self.getProfitStandardDeviationValue(), self.getLossStandardDeviationValue()]
         ]
+
         headers = ['', 'Total trades %s' % self.getTotalCount(), 'Profit trades %s' % self.getProfitCount(), 'Loss trades %s' % self.getLossCount()]
 
         print tabulate(table, headers, tablefmt='rst', floatfmt='.4f')
