@@ -186,55 +186,6 @@ class Strategy(object):
         m = round(self.__balanceTarget / self.getTotalAverageValue())
         return (((q / p) ** m - (q / p) ** z) / ((q / p) ** m - 1)) * 100
         
-    def getTotalCount(self):
-        return len(self.__totalValuesArr)
-
-    def getTotalValue(self):
-        return sum(self.__totalValuesArr)
-
-    def getTotalProcent(self):
-        return (float(self.getTotalValue()) / self.__balanceStart * 100)
-
-    def getTotalMinValue(self):
-        if len(self.__totalValuesArr) == 0:
-            return 0
-        return min(self.__totalValuesArr)
-
-    def getTotalMaxValue(self):
-        if len(self.__totalValuesArr) == 0:
-            return 0
-        return max(self.__totalValuesArr)
-
-    def getTotalAverageValue(self):
-        return sp.mean(self.__totalValuesArr)
-
-    def getTotalAverageProcent(self):
-        return (
-            float(self.getTotalAverageValue())
-            / self.__balanceStart * 100
-        )
-
-    def getTotalVarianceValue(self):
-        return sp.var(self.__totalValuesArr)
-
-    def getTotalVarianceProcent(self):
-        return (float(self.getTotalVarianceValue()) / self.__balanceStart * 100)
-
-    def getTotalStandardDeviationValue(self):
-        return sp.std(self.__totalValuesArr)
-
-    def getTotalStandardDeviationProcent(self):
-        return (
-            float(self.getTotalStandardDeviationValue())
-            / self.__balanceStart * 100
-        )
-
-    def getTotalMedianValue(self):
-        return sp.median(self.__totalValuesArr)
-
-    def getTotalMedianProcent(self):
-        return (float(self.getTotalMedianValue()) / self.__balanceStart * 100)
-
     def getHitrate(self):
         return (float(self.getProfitCount()) / self.getTotalCount() * 100)
 
@@ -264,6 +215,55 @@ class Strategy(object):
             )
         )
 
+    def getTotalCount(self):
+        return len(self.__totalValuesArr)
+
+    def getTotalValue(self):
+        return sum(self.__totalValuesArr)
+
+    def getTotalProcent(self):
+        return (float(self.getTotalValue()) / self.__balanceStart * 100)
+
+    def getTotalMinValue(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
+        return min(self.__totalValuesArr)
+
+    def getTotalMinProcent(self):
+        return (float(self.getTotalMinValue()) / self.__balanceStart * 100)
+
+    def getTotalMaxValue(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
+        return max(self.__totalValuesArr)
+
+    def getTotalMaxProcent(self):
+        return (float(self.getTotalMaxValue()) / self.__balanceStart * 100)
+
+    def getTotalAverageValue(self):
+        return sp.mean(self.__totalValuesArr)
+
+    def getTotalAverageProcent(self):
+        return (float(self.getTotalAverageValue()) / self.__balanceStart * 100)
+
+    def getTotalMedianValue(self):
+        return sp.median(self.__totalValuesArr)
+
+    def getTotalMedianProcent(self):
+        return (float(self.getTotalMedianValue()) / self.__balanceStart * 100)
+
+    def getTotalVarianceValue(self):
+        return sp.var(self.__totalValuesArr)
+
+    def getTotalVarianceProcent(self):
+        return (float(self.getTotalVarianceValue()) / self.__balanceStart * 100)
+
+    def getTotalStandardDeviationValue(self):
+        return sp.std(self.__totalValuesArr)
+
+    def getTotalStandardDeviationProcent(self):
+        return (float(self.getTotalStandardDeviationValue()) / self.__balanceStart * 100)
+    
     def getProfitCount(self):
         if len(self.__profitValuesArr) == 0:
             return 0
@@ -274,36 +274,57 @@ class Strategy(object):
             return 0
         return sum(self.__profitValuesArr)
 
+    def getProfitProcent(self):
+        return (float(self.getProfitValue()) / self.__balanceStart * 100)
+
     def getProfitMinValue(self):
         if len(self.__profitValuesArr) == 0:
             return 0
         return min(self.__profitValuesArr)
+
+    def getProfitMinProcent(self):
+        return (float(self.getProfitMinValue()) / self.__balanceStart * 100)
 
     def getProfitMaxValue(self):
         if len(self.__profitValuesArr) == 0:
             return 0
         return max(self.__profitValuesArr)
 
+    def getProfitMaxProcent(self):
+        return (float(self.getProfitMaxValue()) / self.__balanceStart * 100)
+
     def getProfitAverageValue(self):
         if len(self.__profitValuesArr) == 0:
             return 0
         return sp.mean(self.__profitValuesArr)
 
-    def getProfitVarianceValue(self):
-        if len(self.__profitValuesArr) == 0:
-            return 0
-        return sp.var(self.__profitValuesArr)
-
-    def getProfitStandardDeviationValue(self):
-        if len(self.__profitValuesArr) == 0:
-            return 0
-        return sp.std(self.__profitValuesArr)
+    def getProfitAverageProcent(self):
+        return (float(self.getProfitAverageValue()) / self.__balanceStart * 100)
 
     def getProfitMedianValue(self):
         if len(self.__profitValuesArr) == 0:
             return 0
         return sp.median(self.__profitValuesArr)
         
+    def getProfitMedianProcent(self):
+        return (float(self.getProfitMedianValue()) / self.__balanceStart * 100)
+
+    def getProfitVarianceValue(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
+        return sp.var(self.__profitValuesArr)
+
+    def getProfitVarianceProcent(self):
+        return (float(self.getProfitVarianceValue()) / self.__balanceStart * 100)
+
+    def getProfitStandardDeviationValue(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
+        return sp.std(self.__profitValuesArr)
+
+    def getProfitStandardDeviationProcent(self):
+        return (float(self.getProfitStandardDeviationValue()) / self.__balanceStart * 100)
+
     def getLossCount(self):
         if len(self.__lossValuesArr) == 0:
             return 0
@@ -314,36 +335,57 @@ class Strategy(object):
             return 0
         return sum(self.__lossValuesArr)
 
+    def getLossProcent(self):
+        return (float(self.getLossValue()) / self.__balanceStart * 100)
+
     def getLossMinValue(self):
         if len(self.__lossValuesArr) == 0:
             return 0
         return min(self.__lossValuesArr)
+
+    def getLossMinProcent(self):
+        return (float(self.getLossMinValue()) / self.__balanceStart * 100)
 
     def getLossMaxValue(self):
         if len(self.__lossValuesArr) == 0:
             return 0
         return max(self.__lossValuesArr)
 
+    def getLossMaxProcent(self):
+        return (float(self.getLossMaxValue()) / self.__balanceStart * 100)
+
     def getLossAverageValue(self):
         if len(self.__lossValuesArr) == 0:
             return 0
         return sp.mean(self.__lossValuesArr)
 
-    def getLossVarianceValue(self):
-        if len(self.__lossValuesArr) == 0:
-            return 0
-        return sp.var(self.__lossValuesArr)
-
-    def getLossStandardDeviationValue(self):
-        if len(self.__lossValuesArr) == 0:
-            return 0
-        return sp.std(self.__lossValuesArr)
+    def getLossAverageProcent(self):
+        return (float(self.getLossAverageValue()) / self.__balanceStart * 100)
 
     def getLossMedianValue(self):
         if len(self.__lossValuesArr) == 0:
             return 0
         return sp.median(self.__lossValuesArr)
         
+    def getLossMedianProcent(self):
+        return (float(self.getLossMedianValue()) / self.__balanceStart * 100)
+
+    def getLossVarianceValue(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
+        return sp.var(self.__lossValuesArr)
+
+    def getLossVarianceProcent(self):
+        return (float(self.getLossVarianceValue()) / self.__balanceStart * 100)
+
+    def getLossStandardDeviationValue(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
+        return sp.std(self.__lossValuesArr)
+
+    def getLossStandardDeviationProcent(self):
+        return (float(self.getLossStandardDeviationValue()) / self.__balanceStart * 100)
+
     def __resultLong(self):
         result = 0
         if self.__longPosStart is not 0 and self.__longPosEnd is not 0:
@@ -446,13 +488,6 @@ class Strategy(object):
         print (('In market bars: %s' % self.getBarsInMarket()))
         print (('In market: %% %s' % self.getProcentInMarket()))
         print (('####################################################################'))
-        print (('Total result: %% %s' % self.getTotalProcent()))
-        print (('Average: %% %s' % self.getTotalAverageProcent()))
-        print (('Median: %% %s' % self.getTotalMedianProcent()))
-        print (('Variance: %% %s' % self.getTotalVarianceProcent()))
-        print (('Standard Deviation: %% %s' % self.getTotalStandardDeviationProcent()))
-        print (('Hitrate: %% %s' % self.getHitrate()))
-        print (('####################################################################'))
         print (('Bankruptcy date: %s' % self.getBankruptcyDate()))
         print (('Max daily drawdown value: %s' % self.getMaxDailyDrawdownValue()))
         print (('Consecutive drawdown count: %s' % self.getMaxConsecutiveDrawdownCount()))
@@ -463,21 +498,29 @@ class Strategy(object):
         print (('Risk of Ruin fixed fraction position sizing: %% %s' % self.getRiskOfRuinFixedFractionalPositionSizing()))
         print (('Gambler Ruin problem using Markov Chains: %% %s' % self.getGamblerRuinProblemUsingMarkovChains()))
         print (('####################################################################'))
+        print (('Hitrate: %% %s' % self.getHitrate()))
         print (('WS Index: %s' % self.getWsIndex()))
         print (('RINA Index: %s' % self.getRinaIndex()))
         print (('####################################################################'))
         table = [
             [u'Total result €', self.getTotalValue(), self.getProfitValue(), self.getLossValue()],
+            [u'Total result %', self.getTotalProcent(), self.getProfitProcent(), self.getLossProcent()],
             [u'Max result €', self.getTotalMaxValue(), self.getProfitMaxValue(), self.getLossMinValue()],
+            [u'Max result %', self.getTotalMaxProcent(), self.getProfitMaxProcent(), self.getLossMinProcent()],
             [u'Min result €', self.getTotalMinValue(), self.getProfitMinValue(), self.getLossMaxValue()],
+            [u'Min result %', self.getTotalMinProcent(), self.getProfitMinProcent(), self.getLossMaxProcent()],
             [u'Average €', self.getTotalAverageValue(), self.getProfitAverageValue(), self.getLossAverageValue()],
+            [u'Average %', self.getTotalAverageProcent(), self.getProfitAverageProcent(), self.getLossAverageProcent()],
             [u'Median €', self.getTotalMedianValue(), self.getProfitMedianValue(), self.getLossMedianValue()],
+            [u'Median %', self.getTotalMedianProcent(), self.getProfitMedianProcent(), self.getLossMedianProcent()],
             [u'Variance €', self.getTotalVarianceValue(), self.getProfitVarianceValue(), self.getLossVarianceValue()],
-            [u'Standard Deviation €', self.getTotalStandardDeviationValue(), self.getProfitStandardDeviationValue(), self.getLossStandardDeviationValue()]
+            [u'Variance %', self.getTotalVarianceProcent(), self.getProfitVarianceProcent(), self.getLossVarianceProcent()],
+            [u'Standard Deviation €', self.getTotalStandardDeviationValue(), self.getProfitStandardDeviationValue(), self.getLossStandardDeviationValue()],
+            [u'Standard Deviation %', self.getTotalStandardDeviationProcent(), self.getProfitStandardDeviationProcent(), self.getLossStandardDeviationProcent()]
         ]
 
-        headers = ['', 'Total trades %s' % self.getTotalCount(), 'Profit trades %s' % self.getProfitCount(), 'Loss trades %s' % self.getLossCount()]
+        headers = ['Strategy', 'Total trades %s' % self.getTotalCount(), 'Profit trades %s' % self.getProfitCount(), 'Loss trades %s' % self.getLossCount()]
 
-        print tabulate(table, headers, tablefmt='rst', floatfmt='.4f')
+        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
 
 
