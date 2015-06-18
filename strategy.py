@@ -189,7 +189,7 @@ class Strategy(object):
     def getHitrate(self):
         return (float(self.getProfitCount()) / self.getTotalCount() * 100)
 
-    def getSharpRatio(self):
+    def getSharpeRatio(self):
         return self.getTotalAverageProcent() / self.getTotalStandardDeviationProcent()
 
     def getWsIndex(self):
@@ -488,7 +488,7 @@ class Strategy(object):
         headers = ['Description', 'Value']
 
         table = [
-            ['Sharp Ratio', self.getSharpRatio()],
+            ['Sharpe Ratio', self.getSharpeRatio()],
             ['Hitrate %', self.getHitrate()],
             ['WS Index', self.getWsIndex()],
             ['RINA Index', self.getRinaIndex()],
