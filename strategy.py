@@ -485,57 +485,31 @@ class Strategy(object):
 
     def getAnalysis(self):
 
+        headers = ['Description', 'Value']
+
         table = [
             ['Sharp Ratio', self.getSharpRatio()],
             ['Hitrate %', self.getHitrate()],
             ['WS Index', self.getWsIndex()],
-            ['RINA Index', self.getRinaIndex()]
-        ]
-
-        headers = ['Description', 'Value']
-
-        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
-
-        table = [
+            ['RINA Index', self.getRinaIndex()],
             ['Total bars', self.getBarsTotal()],
             ['In market bars', self.getBarsInMarket()],
-            ['In market %', self.getProcentInMarket()]
-        ]
-
-        headers = ['Description', 'Value']
-
-        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
-
-        table = [
+            ['In market %', self.getProcentInMarket()],
             [u'Result (buy & hold) €', self.getResultBuyAndHoldValue()],
-            ['Result (buy & hold) %', self.getResultBuyAndHoldProcent()]
-        ]
-
-        headers = ['Description', 'Value']
-
-        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
-
-        table = [
+            ['Result (buy & hold) %', self.getResultBuyAndHoldProcent()],
             ['Bankruptcy date', self.getBankruptcyDate()],
             [u'Max daily drawdown value €', self.getMaxDailyDrawdownValue()],
             ['Consecutive drawdown count', self.getMaxConsecutiveDrawdownCount()],
-            [u'Consecutive drawdown value €', self.getMaxConsecutiveDrawdownValue()]
-        ]
-
-        headers = ['Description', 'Value']
-
-        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
-
-        table = [
+            [u'Consecutive drawdown value €', self.getMaxConsecutiveDrawdownValue()],
             ['Risk of Ruin', self.getRiskOfRuin()],
             ['Risk of Ruin fixed position size %', self.getRiskOfRuinFixedPositionSize()],
             ['Risk of Ruin fixed fraction sizing %', self.getRiskOfRuinFixedFractionalPositionSizing()],
             ['Gambler Ruin problem using Markov Chains %', self.getGamblerRuinProblemUsingMarkovChains()]
         ]
 
-        headers = ['Description', 'Value']
-
         print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
+
+        headers = ['Strategy', 'Total trades %s' % self.getTotalCount(), 'Profit trades %s' % self.getProfitCount(), 'Loss trades %s' % self.getLossCount()]
 
         table = [
             [u'Total result €', self.getTotalValue(), self.getProfitValue(), self.getLossValue()],
@@ -553,8 +527,6 @@ class Strategy(object):
             [u'Standard Deviation €', self.getTotalStandardDeviationValue(), self.getProfitStandardDeviationValue(), self.getLossStandardDeviationValue()],
             ['Standard Deviation %', self.getTotalStandardDeviationProcent(), self.getProfitStandardDeviationProcent(), self.getLossStandardDeviationProcent()]
         ]
-
-        headers = ['Strategy', 'Total trades %s' % self.getTotalCount(), 'Profit trades %s' % self.getProfitCount(), 'Loss trades %s' % self.getLossCount()]
 
         print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
 
