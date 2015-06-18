@@ -485,6 +485,20 @@ class Strategy(object):
 
     def getAnalysis(self):
 
+        headers = ['Total trades %s' % self.getTotalCount(), u'€', '%', 'Profit trades %s' % self.getProfitCount(), u'€', '%', 'Loss trades %s' % self.getLossCount(), u'€', '%']
+
+        table = [
+            ['Total result', self.getTotalValue(), self.getTotalProcent(), 'Total result', self.getProfitValue(), self.getProfitProcent(), 'Total result', self.getLossValue(), self.getLossProcent()],
+            ['Max result', self.getTotalMaxValue(), self.getTotalMaxProcent(), 'Max result', self.getProfitMaxValue(), self.getProfitMaxProcent(), 'Max result', self.getLossMinValue(), self.getLossMinProcent()],
+            ['Min result', self.getTotalMinValue(), self.getTotalMinProcent(), 'Min result', self.getProfitMinValue(), self.getProfitMinProcent(), 'Min result', self.getLossMaxValue(), self.getLossMaxProcent()],
+            ['Average', self.getTotalAverageValue(), self.getTotalAverageProcent(), 'Average', self.getProfitAverageValue(), self.getProfitAverageProcent(), 'Average', self.getLossAverageValue(), self.getLossAverageProcent()],
+            ['Median', self.getTotalMedianValue(), self.getTotalMedianProcent(), 'Median', self.getProfitMedianValue(), self.getProfitMedianProcent(), 'Median', self.getLossMedianValue(), self.getLossMedianProcent()],
+            ['Variance', self.getTotalVarianceValue(), self.getTotalVarianceProcent(), 'Variance', self.getProfitVarianceValue(), self.getProfitVarianceProcent(), 'Variance', self.getLossVarianceValue(), self.getLossVarianceProcent()],
+            ['Standard Deviation', self.getTotalStandardDeviationValue(), self.getTotalStandardDeviationProcent(), 'Standard Deviation', self.getProfitStandardDeviationValue(), self.getProfitStandardDeviationProcent(), 'Standard Deviation', self.getLossStandardDeviationValue(), self.getLossStandardDeviationProcent()]
+        ]
+
+        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
+
         headers = ['Description', 'Value']
 
         table = [
@@ -508,26 +522,4 @@ class Strategy(object):
         ]
 
         print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
-
-        headers = ['Strategy', 'Total trades %s' % self.getTotalCount(), 'Profit trades %s' % self.getProfitCount(), 'Loss trades %s' % self.getLossCount()]
-
-        table = [
-            [u'Total result €', self.getTotalValue(), self.getProfitValue(), self.getLossValue()],
-            ['Total result %', self.getTotalProcent(), self.getProfitProcent(), self.getLossProcent()],
-            [u'Max result €', self.getTotalMaxValue(), self.getProfitMaxValue(), self.getLossMinValue()],
-            ['Max result %', self.getTotalMaxProcent(), self.getProfitMaxProcent(), self.getLossMinProcent()],
-            [u'Min result €', self.getTotalMinValue(), self.getProfitMinValue(), self.getLossMaxValue()],
-            ['Min result %', self.getTotalMinProcent(), self.getProfitMinProcent(), self.getLossMaxProcent()],
-            [u'Average €', self.getTotalAverageValue(), self.getProfitAverageValue(), self.getLossAverageValue()],
-            ['Average %', self.getTotalAverageProcent(), self.getProfitAverageProcent(), self.getLossAverageProcent()],
-            [u'Median €', self.getTotalMedianValue(), self.getProfitMedianValue(), self.getLossMedianValue()],
-            ['Median %', self.getTotalMedianProcent(), self.getProfitMedianProcent(), self.getLossMedianProcent()],
-            [u'Variance €', self.getTotalVarianceValue(), self.getProfitVarianceValue(), self.getLossVarianceValue()],
-            ['Variance %', self.getTotalVarianceProcent(), self.getProfitVarianceProcent(), self.getLossVarianceProcent()],
-            [u'Standard Deviation €', self.getTotalStandardDeviationValue(), self.getProfitStandardDeviationValue(), self.getLossStandardDeviationValue()],
-            ['Standard Deviation %', self.getTotalStandardDeviationProcent(), self.getProfitStandardDeviationProcent(), self.getLossStandardDeviationProcent()]
-        ]
-
-        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
-
 
