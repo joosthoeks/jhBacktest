@@ -190,6 +190,8 @@ class Strategy(object):
         return (float(self.getProfitCount()) / self.getTotalCount() * 100)
 
     def getSharpeRatio(self):
+        if self.getTotalStandardDeviationProcent() == 0:
+            return 0
         return self.getTotalAverageProcent() / self.getTotalStandardDeviationProcent()
 
     def getWsIndex(self):
@@ -225,6 +227,8 @@ class Strategy(object):
         return sum(self.__totalValuesArr)
 
     def getTotalProcent(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
         return (float(self.getTotalValue()) / self.__balanceStart * 100)
 
     def getTotalMinValue(self):
@@ -233,6 +237,8 @@ class Strategy(object):
         return min(self.__totalValuesArr)
 
     def getTotalMinProcent(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
         return (float(self.getTotalMinValue()) / self.__balanceStart * 100)
 
     def getTotalMaxValue(self):
@@ -241,30 +247,40 @@ class Strategy(object):
         return max(self.__totalValuesArr)
 
     def getTotalMaxProcent(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
         return (float(self.getTotalMaxValue()) / self.__balanceStart * 100)
 
     def getTotalAverageValue(self):
         return sp.mean(self.__totalValuesArr)
 
     def getTotalAverageProcent(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
         return (float(self.getTotalAverageValue()) / self.__balanceStart * 100)
 
     def getTotalMedianValue(self):
         return sp.median(self.__totalValuesArr)
 
     def getTotalMedianProcent(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
         return (float(self.getTotalMedianValue()) / self.__balanceStart * 100)
 
     def getTotalVarianceValue(self):
         return sp.var(self.__totalValuesArr)
 
     def getTotalVarianceProcent(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
         return (float(self.getTotalVarianceValue()) / self.__balanceStart * 100)
 
     def getTotalStandardDeviationValue(self):
         return sp.std(self.__totalValuesArr)
 
     def getTotalStandardDeviationProcent(self):
+        if len(self.__totalValuesArr) == 0:
+            return 0
         return (float(self.getTotalStandardDeviationValue()) / self.__balanceStart * 100)
     
     def getProfitCount(self):
@@ -278,6 +294,8 @@ class Strategy(object):
         return sum(self.__profitValuesArr)
 
     def getProfitProcent(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return (float(self.getProfitValue()) / self.__balanceStart * 100)
 
     def getProfitMinValue(self):
@@ -286,6 +304,8 @@ class Strategy(object):
         return min(self.__profitValuesArr)
 
     def getProfitMinProcent(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return (float(self.getProfitMinValue()) / self.__balanceStart * 100)
 
     def getProfitMaxValue(self):
@@ -294,6 +314,8 @@ class Strategy(object):
         return max(self.__profitValuesArr)
 
     def getProfitMaxProcent(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return (float(self.getProfitMaxValue()) / self.__balanceStart * 100)
 
     def getProfitAverageValue(self):
@@ -302,6 +324,8 @@ class Strategy(object):
         return sp.mean(self.__profitValuesArr)
 
     def getProfitAverageProcent(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return (float(self.getProfitAverageValue()) / self.__balanceStart * 100)
 
     def getProfitMedianValue(self):
@@ -310,6 +334,8 @@ class Strategy(object):
         return sp.median(self.__profitValuesArr)
         
     def getProfitMedianProcent(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return (float(self.getProfitMedianValue()) / self.__balanceStart * 100)
 
     def getProfitVarianceValue(self):
@@ -318,6 +344,8 @@ class Strategy(object):
         return sp.var(self.__profitValuesArr)
 
     def getProfitVarianceProcent(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return (float(self.getProfitVarianceValue()) / self.__balanceStart * 100)
 
     def getProfitStandardDeviationValue(self):
@@ -326,6 +354,8 @@ class Strategy(object):
         return sp.std(self.__profitValuesArr)
 
     def getProfitStandardDeviationProcent(self):
+        if len(self.__profitValuesArr) == 0:
+            return 0
         return (float(self.getProfitStandardDeviationValue()) / self.__balanceStart * 100)
 
     def getLossCount(self):
@@ -339,6 +369,8 @@ class Strategy(object):
         return sum(self.__lossValuesArr)
 
     def getLossProcent(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return (float(self.getLossValue()) / self.__balanceStart * 100)
 
     def getLossMinValue(self):
@@ -347,6 +379,8 @@ class Strategy(object):
         return min(self.__lossValuesArr)
 
     def getLossMinProcent(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return (float(self.getLossMinValue()) / self.__balanceStart * 100)
 
     def getLossMaxValue(self):
@@ -355,6 +389,8 @@ class Strategy(object):
         return max(self.__lossValuesArr)
 
     def getLossMaxProcent(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return (float(self.getLossMaxValue()) / self.__balanceStart * 100)
 
     def getLossAverageValue(self):
@@ -363,6 +399,8 @@ class Strategy(object):
         return sp.mean(self.__lossValuesArr)
 
     def getLossAverageProcent(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return (float(self.getLossAverageValue()) / self.__balanceStart * 100)
 
     def getLossMedianValue(self):
@@ -371,6 +409,8 @@ class Strategy(object):
         return sp.median(self.__lossValuesArr)
         
     def getLossMedianProcent(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return (float(self.getLossMedianValue()) / self.__balanceStart * 100)
 
     def getLossVarianceValue(self):
@@ -379,6 +419,8 @@ class Strategy(object):
         return sp.var(self.__lossValuesArr)
 
     def getLossVarianceProcent(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return (float(self.getLossVarianceValue()) / self.__balanceStart * 100)
 
     def getLossStandardDeviationValue(self):
@@ -387,6 +429,8 @@ class Strategy(object):
         return sp.std(self.__lossValuesArr)
 
     def getLossStandardDeviationProcent(self):
+        if len(self.__lossValuesArr) == 0:
+            return 0
         return (float(self.getLossStandardDeviationValue()) / self.__balanceStart * 100)
 
     def __resultLong(self):
