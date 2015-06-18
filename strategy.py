@@ -189,6 +189,9 @@ class Strategy(object):
     def getHitrate(self):
         return (float(self.getProfitCount()) / self.getTotalCount() * 100)
 
+    def getSharpRatio(self):
+        return self.getTotalAverageProcent() / self.getTotalStandardDeviationProcent()
+
     def getWsIndex(self):
         if self.getLossMinValue() == 0:
             return 'nan'
@@ -499,6 +502,7 @@ class Strategy(object):
         print (('Gambler Ruin problem using Markov Chains: %% %s' % self.getGamblerRuinProblemUsingMarkovChains()))
         print (('####################################################################'))
         print (('Hitrate: %% %s' % self.getHitrate()))
+        print (('Sharp Ratio: %s' % self.getSharpRatio()))
         print (('WS Index: %s' % self.getWsIndex()))
         print (('RINA Index: %s' % self.getRinaIndex()))
         print (('####################################################################'))
