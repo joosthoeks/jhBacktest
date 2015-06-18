@@ -484,43 +484,74 @@ class Strategy(object):
             self.__setBankruptcyDate(bar)
 
     def getAnalysis(self):
-        print (('Result (buy & hold): € %s' % self.getResultBuyAndHoldValue()))
-        print (('Result (buy & hold): %% %s' % self.getResultBuyAndHoldProcent()))
-        print (('####################################################################'))
-        print (('Total bars: %s' % self.getBarsTotal()))
-        print (('In market bars: %s' % self.getBarsInMarket()))
-        print (('In market: %% %s' % self.getProcentInMarket()))
-        print (('####################################################################'))
-        print (('Bankruptcy date: %s' % self.getBankruptcyDate()))
-        print (('Max daily drawdown value: %s' % self.getMaxDailyDrawdownValue()))
-        print (('Consecutive drawdown count: %s' % self.getMaxConsecutiveDrawdownCount()))
-        print (('Consecutive drawdown value: %s' % self.getMaxConsecutiveDrawdownValue()))
-        print (('####################################################################'))
-        print (('Risk of Ruin: %s' % self.getRiskOfRuin()))
-        print (('Risk of Ruin fixed position size: %% %s' % self.getRiskOfRuinFixedPositionSize()))
-        print (('Risk of Ruin fixed fraction position sizing: %% %s' % self.getRiskOfRuinFixedFractionalPositionSizing()))
-        print (('Gambler Ruin problem using Markov Chains: %% %s' % self.getGamblerRuinProblemUsingMarkovChains()))
-        print (('####################################################################'))
-        print (('Hitrate: %% %s' % self.getHitrate()))
-        print (('Sharp Ratio: %s' % self.getSharpRatio()))
-        print (('WS Index: %s' % self.getWsIndex()))
-        print (('RINA Index: %s' % self.getRinaIndex()))
-        print (('####################################################################'))
+
+        table = [
+            ['Sharp Ratio', self.getSharpRatio()],
+            ['Hitrate %', self.getHitrate()],
+            ['WS Index', self.getWsIndex()],
+            ['RINA Index', self.getRinaIndex()]
+        ]
+
+        headers = ['Description', 'Value']
+
+        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
+
+        table = [
+            ['Total bars', self.getBarsTotal()],
+            ['In market bars', self.getBarsInMarket()],
+            ['In market %', self.getProcentInMarket()]
+        ]
+
+        headers = ['Description', 'Value']
+
+        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
+
+        table = [
+            [u'Result (buy & hold) €', self.getResultBuyAndHoldValue()],
+            ['Result (buy & hold) %', self.getResultBuyAndHoldProcent()]
+        ]
+
+        headers = ['Description', 'Value']
+
+        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
+
+        table = [
+            ['Bankruptcy date', self.getBankruptcyDate()],
+            [u'Max daily drawdown value €', self.getMaxDailyDrawdownValue()],
+            ['Consecutive drawdown count', self.getMaxConsecutiveDrawdownCount()],
+            [u'Consecutive drawdown value €', self.getMaxConsecutiveDrawdownValue()]
+        ]
+
+        headers = ['Description', 'Value']
+
+        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
+
+        table = [
+            ['Risk of Ruin', self.getRiskOfRuin()],
+            ['Risk of Ruin fixed position size %', self.getRiskOfRuinFixedPositionSize()],
+            ['Risk of Ruin fixed fraction sizing %', self.getRiskOfRuinFixedFractionalPositionSizing()],
+            ['Gambler Ruin problem using Markov Chains %', self.getGamblerRuinProblemUsingMarkovChains()]
+        ]
+
+        headers = ['Description', 'Value']
+
+        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
+
         table = [
             [u'Total result €', self.getTotalValue(), self.getProfitValue(), self.getLossValue()],
-            [u'Total result %', self.getTotalProcent(), self.getProfitProcent(), self.getLossProcent()],
+            ['Total result %', self.getTotalProcent(), self.getProfitProcent(), self.getLossProcent()],
             [u'Max result €', self.getTotalMaxValue(), self.getProfitMaxValue(), self.getLossMinValue()],
-            [u'Max result %', self.getTotalMaxProcent(), self.getProfitMaxProcent(), self.getLossMinProcent()],
+            ['Max result %', self.getTotalMaxProcent(), self.getProfitMaxProcent(), self.getLossMinProcent()],
             [u'Min result €', self.getTotalMinValue(), self.getProfitMinValue(), self.getLossMaxValue()],
-            [u'Min result %', self.getTotalMinProcent(), self.getProfitMinProcent(), self.getLossMaxProcent()],
+            ['Min result %', self.getTotalMinProcent(), self.getProfitMinProcent(), self.getLossMaxProcent()],
             [u'Average €', self.getTotalAverageValue(), self.getProfitAverageValue(), self.getLossAverageValue()],
-            [u'Average %', self.getTotalAverageProcent(), self.getProfitAverageProcent(), self.getLossAverageProcent()],
+            ['Average %', self.getTotalAverageProcent(), self.getProfitAverageProcent(), self.getLossAverageProcent()],
             [u'Median €', self.getTotalMedianValue(), self.getProfitMedianValue(), self.getLossMedianValue()],
-            [u'Median %', self.getTotalMedianProcent(), self.getProfitMedianProcent(), self.getLossMedianProcent()],
+            ['Median %', self.getTotalMedianProcent(), self.getProfitMedianProcent(), self.getLossMedianProcent()],
             [u'Variance €', self.getTotalVarianceValue(), self.getProfitVarianceValue(), self.getLossVarianceValue()],
-            [u'Variance %', self.getTotalVarianceProcent(), self.getProfitVarianceProcent(), self.getLossVarianceProcent()],
+            ['Variance %', self.getTotalVarianceProcent(), self.getProfitVarianceProcent(), self.getLossVarianceProcent()],
             [u'Standard Deviation €', self.getTotalStandardDeviationValue(), self.getProfitStandardDeviationValue(), self.getLossStandardDeviationValue()],
-            [u'Standard Deviation %', self.getTotalStandardDeviationProcent(), self.getProfitStandardDeviationProcent(), self.getLossStandardDeviationProcent()]
+            ['Standard Deviation %', self.getTotalStandardDeviationProcent(), self.getProfitStandardDeviationProcent(), self.getLossStandardDeviationProcent()]
         ]
 
         headers = ['Strategy', 'Total trades %s' % self.getTotalCount(), 'Profit trades %s' % self.getProfitCount(), 'Loss trades %s' % self.getLossCount()]
