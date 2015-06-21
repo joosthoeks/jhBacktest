@@ -4,6 +4,10 @@ from yahoo_finance import Share
 from datetime import datetime as dt
 import csv
 import MySQLdb
+# only for ib data:
+from ib.opt import ibConnection, message
+import time
+
 
 
 def getDataYahoo(dateStart, dateEnd, symbol='^AEX'):
@@ -83,6 +87,44 @@ def getDataDb(dbHost, dbUser, dbPass, dbName, dbTable, dateStart, dateEnd):
             'close': float(v[5]),
             'volume': int(v[6])
             })
+
+    return data
+
+
+def watcher(msg):
+#    print msg
+    if msg.open == -1:
+        return
+    data.append({
+        'datetime': msg.date,
+        'open': float(msg.open),
+        'high': float(msg.high),
+        'low': float(msg.low),
+        'close': float(msg.close),
+        'volume': int(msg.volume)
+    })
+
+def getDataIb(id, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate):
+
+    global data
+    data = []
+
+    con = ibConnection()
+    con.register(watcher, message.historicalData)
+    con.connect()
+
+    time.sleep(1)
+
+    #con.reqMktData(id, contract, '', False)
+    con.reqHistoricalData(id, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate)
+
+    time.sleep(1)
+
+    con.cancelHistoricalData(id)
+
+    time.sleep(1)
+
+    con.disconnect()
 
     return data
 
