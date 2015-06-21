@@ -9,4 +9,5 @@ Install dependencies and run startStrategyExample.py or modify example files.
 * [NumPy](http://www.numpy.org/)
 * [SciPy](http://www.scipy.org/)
 * [Yahoo-Finance](https://pypi.python.org/pypi/yahoo-finance)
+* [IbPy](https://github.com/blampe/IbPy)
 
