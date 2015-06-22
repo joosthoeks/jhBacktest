@@ -57,8 +57,8 @@ docs/_build/
 target/
 
 # Project
-/startStrategyMy.py
-/data_my.py
+/startBacktestMy.py
+/startAutoTraderMy.py
 /strategy_my.py
 *~
 *.swp
