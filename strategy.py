@@ -127,8 +127,8 @@ class Strategy(object):
         for value in self.__totalValuesArr:
             if value <= 0:
                 lossCount += 1
-            else:
                 lossCountArr.append(lossCount)
+            else:
                 lossCount = 0
                 
         return max(lossCountArr)
@@ -139,8 +139,8 @@ class Strategy(object):
         for value in self.__totalValuesArr:
             if value <= 0:
                 lossValue += value
-            else:
                 lossValueArr.append(lossValue)
+            else:
                 lossValue = 0
                 
         return min(lossValueArr)
