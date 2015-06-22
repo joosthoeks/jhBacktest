@@ -1,7 +1,11 @@
 # jhBacktest
 
 ## Run
-Install dependencies and run startStrategyExample.py or modify example files.
+Install dependencies and run:
+```
+$ python startBacktestExample.py
+```
+or modify example files...
 
 ### Dependencies
 * [TA-Lib](http://ta-lib.org/)
