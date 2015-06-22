@@ -37,7 +37,7 @@ class Strategy(object):
         self.__totalValuesArr = []
         self.__profitValuesArr = []
         self.__lossValuesArr = []
-        self.__dailyDrawdownArr = []
+        self.__barDrawdownArr = []
 
     def __getNumpyBars(self, bars):
         datetimeArr = []
@@ -96,18 +96,18 @@ class Strategy(object):
     def getProcentInMarket(self):
         return (float(self.getBarsInMarket()) / self.getBarsTotal() * 100)
 
-    def getMaxDailyDrawdownValue(self):
-        if len(self.__dailyDrawdownArr) == 0:
+    def getMaxBarDrawdownValue(self):
+        if len(self.__barDrawdownArr) == 0:
             return 0
-        return max(self.__dailyDrawdownArr) * -1
+        return max(self.__barDrawdownArr) * -1
 
-    def __setDailyDrawdown(self, bar):
+    def __setBarDrawdown(self, bar):
         if self._longPos:
-            dailyDrawdown = (bar['open'] - bar['low']) * self.__multiplier
-            self.__dailyDrawdownArr.append(dailyDrawdown)
+            barDrawdown = (bar['open'] - bar['low']) * self.__multiplier
+            self.__barDrawdownArr.append(barDrawdown)
         if self._shortPos:
-            dailyDrawdown = (bar['high'] - bar['open']) * self.__multiplier
-            self.__dailyDrawdownArr.append(dailyDrawdown)
+            barDrawdown = (bar['high'] - bar['open']) * self.__multiplier
+            self.__barDrawdownArr.append(barDrawdown)
 
     def getBankruptcyDate(self):
         return self.__bankruptcyDate
@@ -115,7 +115,7 @@ class Strategy(object):
     def __setBankruptcyDate(self, bar):
         if self.__bankruptcyDate is 0:
             diff = self.__balanceStart - self.__bankruptcyAt
-            if (self.getMaxDailyDrawdownValue() > diff):
+            if (self.getMaxBarDrawdownValue() > diff):
                 self.__bankruptcyDate = bar['datetime']
         if self.__bankruptcyDate is 0:
             if (self.__balance < self.__bankruptcyAt):
@@ -528,7 +528,7 @@ class Strategy(object):
             self.__resultLong()
             self.__resultShort()
             self.__setBarsInMarket()
-            self.__setDailyDrawdown(bar)
+            self.__setBarDrawdown(bar)
             self.__setBankruptcyDate(bar)
 
     def getAnalysis(self):
@@ -560,7 +560,7 @@ class Strategy(object):
             [u'Result (buy & hold) €', self.getResultBuyAndHoldValue()],
             ['Result (buy & hold) %', self.getResultBuyAndHoldProcent()],
             ['Bankruptcy date', self.getBankruptcyDate()],
-            [u'Max daily drawdown value €', self.getMaxDailyDrawdownValue()],
+            [u'Max bar drawdown value €', self.getMaxBarDrawdownValue()],
             ['Consecutive drawdown count', self.getMaxConsecutiveDrawdownCount()],
             [u'Consecutive drawdown value €', self.getMaxConsecutiveDrawdownValue()],
             ['Risk of Ruin', self.getRiskOfRuin()],
