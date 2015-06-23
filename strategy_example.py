@@ -20,7 +20,13 @@ class StrategyExample(Strategy):
     def _onBars(self, bar):
         # Wait for enough bars to be available to calculate SMA
         if (np.isnan(self.__indicator[self.getBarIndex()])):
-            print (('%s is nan o: %s' % (bar['datetime'], bar['open'])))
+            print (('%s o: %s h: %s l: %s c: %s i: is nan' %
+            (bar['datetime'],
+                self._getFormatStr(bar['open']),
+                self._getFormatStr(bar['high']),
+                self._getFormatStr(bar['low']),
+                self._getFormatStr(bar['close'])
+            )))
             return
 
         # check and do long position:
