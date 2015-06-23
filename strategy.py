@@ -479,22 +479,22 @@ class Strategy(object):
     def _enterLongSignal(self, bar):
         self._longSignal = True
         print (('%s ENTER LONG SIGNAL' % bar['datetime']))
-        print (('\a'))
+#        print (('\a'))
 
     def _exitLongSignal(self, bar):
         self._longSignal = False
         print (('%s EXIT LONG SIGNAL' % bar['datetime']))
-        print (('\a'))
+#        print (('\a'))
 
     def _enterShortSignal(self, bar):
         self._shortSignal = True
         print (('%s ENTER SHORT SIGNAL' % bar['datetime']))
-        print (('\a'))
+#        print (('\a'))
 
     def _exitShortSignal(self, bar):
         self._shortSignal = False
         print (('%s EXIT SHORT SIGNAL' % bar['datetime']))
-        print (('\a'))
+#        print (('\a'))
 
     def _enterLongPos(self, bar):
         self._longPos = True
