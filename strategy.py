@@ -187,6 +187,8 @@ class Strategy(object):
         return (((q / p) ** m - (q / p) ** z) / ((q / p) ** m - 1)) * 100
         
     def getHitrate(self):
+        if self.getProfitCount() == 0:
+            return 0
         return (float(self.getProfitCount()) / self.getTotalCount() * 100)
 
     def getSharpeRatio(self):
