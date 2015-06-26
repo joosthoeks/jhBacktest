@@ -131,6 +131,8 @@ class Strategy(object):
             else:
                 lossCount = 0
                 
+        if len(lossCountArr) == 0:
+            return 0
         return max(lossCountArr)
 
     def getMaxConsecutiveDrawdownValue(self):
@@ -143,6 +145,8 @@ class Strategy(object):
             else:
                 lossValue = 0
                 
+        if len(lossValueArr) == 0:
+            return 0
         return min(lossValueArr)
 
     def getRiskOfRuin(self):
