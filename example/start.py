@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-from jhbacktestmini.data import *
-import jhbacktestmini.graph as jhgraph
-import jhbacktestmini.stats as jhstats
+from jhbacktest.data import *
+import jhbacktest.graph as jhgraph
+import jhbacktest.stats as jhstats
 from strategy_example import StrategyMy
 
 from datetime import datetime as dt

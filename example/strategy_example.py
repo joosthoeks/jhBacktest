@@ -1,4 +1,4 @@
-from jhbacktestmini.strategy import Strategy
+from jhbacktest.strategy import Strategy
 
 import talib as ta
 

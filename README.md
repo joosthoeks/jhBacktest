@@ -1,11 +1,16 @@
-# jhBacktestMini
-Mini Backtest and analysis trading strategy with Python
+# jhBacktest
+Backtest and analysis trading strategy with Python
 
 ## Install
 ```
-$ pip install jhbacktestmini
+$ pip install jhbacktest
 ```
-
+or
+```
+$ git clone https://github.com/joosthoeks/jhBacktest.git
+$ cd jhBacktest
+$ sudo pip install -e .
+```
 ## Run
 ```
 $ cd example/

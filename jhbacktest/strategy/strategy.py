@@ -1,5 +1,5 @@
-from jhbacktestmini.data import *
-import jhbacktestmini.stats as jhstats
+from jhbacktest.data import *
+import jhbacktest.stats as jhstats
 
 from tabulate import tabulate
 import termcolor as tc
