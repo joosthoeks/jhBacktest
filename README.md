@@ -1,17 +1,27 @@
-# jhBacktest
+# jhBacktestMini
+Mini Backtest and analysis trading strategy with Python
+
+## Install
+```
+$ pip install jhbacktestmini
+```
 
 ## Run
-Install dependencies and run:
 ```
-$ python startBacktestExample.py
+$ cd example/
 ```
-or modify example files...
+```
+$ python start.py
+```
 
 ### Dependencies
-* [TA-Lib](http://ta-lib.org/)
-* [TA-Lib for Python](http://mrjbq7.github.io/ta-lib/)
-* [NumPy](http://www.numpy.org/)
 * [SciPy](http://www.scipy.org/)
-* [Yahoo-Finance](https://pypi.python.org/pypi/yahoo-finance)
-* [IbPy](https://github.com/blampe/IbPy)
+* [NumPy](http://www.numpy.org/)
+* [pandas](https://pypi.python.org/pypi/pandas)
+* [TA-Lib](https://pypi.python.org/pypi/TA-Lib)
+* [tabulate](https://pypi.python.org/pypi/tabulate)
+* [termcolor](https://pypi.python.org/pypi/termcolor)
+* [matplotlib](http://www.matplotlib.org/)
+* [Yahoo-Finance](https://pypi.python.org/pypi/yahoo-finance) (only for Yahoo Finance)
+* [IbPy](https://github.com/blampe/IbPy) (only for ib)
 
