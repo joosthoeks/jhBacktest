@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='jhBacktest',
-    version='20170131.0',
+    version='20170204.0',
     description='Backtest and analysis trading strategy with Python',
     keywords='backtest analysis trading strategy',
     url='https://github.com/joosthoeks/jhBacktest',
@@ -25,12 +25,8 @@ setup(
 #        'tabulate',
 #        'termcolor',
 #        'matplotlib',
-#        'yahoo-finance',
-#        'ibpy',
     ],
-    dependency_links=[
-#        'https://github.com/blampe/IbPy/tarball/master',
-    ],
+    dependency_links=[],
     zip_safe=False
 )
 

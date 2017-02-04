@@ -7,17 +7,17 @@ import termcolor as tc
 
 class Strategy(object):
 
-    def __init__(self, bars, slippage=0):
+    def __init__(self, df, slippage=0):
 
-        self.__bars = bars
+        self.__df = df
         __data = Data()
-        self.__bars_np = __data.get_numpy_bars(self.__bars)
-        self.__bars_pd = __data.get_pandas_bars(self.__bars_np)
+        self.__df_np = __data.df2numpy(self.__df)
+        self.__df_pd = __data.numpy2pandas(self.__df_np)
+        self.__df_index = -1
         self.__long_signal = False
         self.__short_signal = False
         self.__long_pos = False
         self.__short_pos = False
-        self.__bar_index = -1
         self.__bar_in_market = 0
         self.__bar_up_count = 0
         self.__bar_down_count = 0
@@ -45,21 +45,18 @@ class Strategy(object):
         self.__open_equity_curve = 0
         self.__open_equity_curve_list = []
 
-    def get_bars(self):
-        return self.__bars
+    def get_df(self):
+        return self.__df
 
-    def get_bar(self, index):
-        return self.__bars[index]
-
-    def get_bars_np(self, key=None):
-        if key is None:
-            return self.__bars_np
-        return self.__bars_np[key]
-
-    def get_bars_pd(self, key=None):
-        if key is None:
-            return self.__bars_pd
-        return self.__bars_pd[key]
+    def get_df_np(self, price='Close', index=None):
+        if index is None:
+            return self.__df_np[price]
+        return self.__df_np[price][index]
+ 
+    def get_df_pd(self, price='Close', index=None):
+        if index is None:
+            return self.__df_pd[price]
+        return self.__df_pd[price][index]
         
     def get_total_values_list(self):
         return self.__total_values_list
@@ -87,13 +84,13 @@ class Strategy(object):
         return self.__benchmark_list
 
     def set_pos_long(self, pos):
-        self.__pos_long_dict[self.get_bar_index()] = pos
+        self.__pos_long_dict[self.get_df_index()] = pos
 
     def get_pos_long(self, key):
         return self.__pos_long_dict[key]
 
     def set_pos_short(self, pos):
-        self.__pos_short_dict[self.get_bar_index()] = pos
+        self.__pos_short_dict[self.get_df_index()] = pos
 
     def get_pos_short(self, key):
         return self.__pos_short_dict[key]
@@ -122,14 +119,14 @@ class Strategy(object):
     def set_last_trade_bar_index(self, index):
         self.__last_trade_bar_index += 1
 
-    def get_bar_index(self):
-        return self.__bar_index
+    def get_df_index(self):
+        return self.__df_index
 
-    def set_bar_index(self):
-        self.__bar_index += 1
+    def set_df_index(self):
+        self.__df_index += 1
 
     def get_bars_total(self):
-        return self.__bar_index + 1
+        return self.__df_index + 1
 
     def get_bars_in_market(self):
         return self.__bar_in_market
@@ -281,23 +278,23 @@ class Strategy(object):
         """
         open_price = bar['Open']
         price = bar['Close']
-        last_price = self.__bars[self.get_bar_index() - 1]['Close']
+        last_price = self.__df['Close'][self.get_df_index() - 1]
         open_result = 0
 
         open_result_long = 0
-        if self.get_pos_long(self.get_bar_index()) is 'start':
+        if self.get_pos_long(self.get_df_index()) is 'start':
             open_result_long = price - open_price
-        if self.get_pos_long(self.get_bar_index()) is 'end':
+        if self.get_pos_long(self.get_df_index()) is 'end':
             open_result_long = last_price - open_price
-        if self.get_pos_long(self.get_bar_index()) is 'in':
+        if self.get_pos_long(self.get_df_index()) is 'in':
             open_result_long = price - last_price
         
         open_result_short = 0
-        if self.get_pos_short(self.get_bar_index()) is 'start':
+        if self.get_pos_short(self.get_df_index()) is 'start':
             open_result_short = open_price - price
-        if self.get_pos_short(self.get_bar_index()) is 'end':
+        if self.get_pos_short(self.get_df_index()) is 'end':
             open_result_short = open_price - last_price
-        if self.get_pos_short(self.get_bar_index()) is 'in':
+        if self.get_pos_short(self.get_df_index()) is 'in':
             open_result_short = last_price - price
         
         open_result = open_result_long + open_result_short
@@ -340,7 +337,7 @@ class Strategy(object):
         self.__long_pos_start = bar['Open']
         self.__long_pos_count += 1
         self.set_pos_long('enter')
-        self.set_last_trade_bar_index(self.get_bar_index())
+        self.set_last_trade_bar_index(self.get_df_index())
         if print_output:
             print ('%s ################################################### ENTER LONG AT %s #########################' % \
             (bar['datetime'], self.get_format_str(bar['Open'])))
@@ -363,7 +360,7 @@ class Strategy(object):
         self.__short_pos_start = bar['Open']
         self.__short_pos_count += 1
         self.set_pos_short('enter')
-        self.set_last_trade_bar_index(self.get_bar_index())
+        self.set_last_trade_bar_index(self.get_df_index())
         if print_output:
             print ('%s ################################################### ENTER SHORT AT %s ########################' % \
             (bar['datetime'], self.get_format_str(bar['Open'])))
@@ -411,7 +408,7 @@ class Strategy(object):
                 self.get_format_str(bar['Close']),
                 bar['Volume'],
 #                self.get_format_str(indicator)
-                self.get_color(self._indicator[self.get_bar_index()])
+                self.get_color(self._indicator[self.get_df_index()])
             )))
 
     def check_do_long_signal(self, bar, print_output):
@@ -433,8 +430,16 @@ class Strategy(object):
                 self.enter_short_signal(bar, print_output)
 
     def run(self, print_output=True):
-        for bar in self.__bars:
-            self.set_bar_index()
+        i = 0
+        while i < len(self.__df['Close']):
+            bar = {}
+            bar['datetime'] = self.__df['datetime'][i]
+            bar['Open'] = self.__df['Open'][i]
+            bar['High'] = self.__df['High'][i]
+            bar['Low'] = self.__df['Low'][i]
+            bar['Close'] = self.__df['Close'][i]
+            bar['Volume'] = self.__df['Volume'][i]
+            self.set_df_index()
             self.check_do_long_pos(bar, print_output)
             self.check_do_short_pos(bar, print_output)
             self.set_pos_long('out')
@@ -454,6 +459,7 @@ class Strategy(object):
             self.set_bar_up_count(bar)
             self.set_bar_down_count(bar)
             self.set_drawdown(bar)
+            i += 1
 
     def get_analysis(self):
 
