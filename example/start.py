@@ -7,14 +7,14 @@ from strategy_example import StrategyMy
 
 
 def main():
-    # set slippage:
-    slippage = 0
-
-    # get data:
+    # set df:
     data = Data()
     df = data.csv2df('data/data.csv')
 
-    # get best n:
+    # set slippage:
+    slippage = 0
+
+    # set best n:
     best_result = -1000000
     best_n = 0
     result_list = []
@@ -43,6 +43,7 @@ def main():
 
     # get analysis with best n:
     n = best_n
+#    n = 4
     strat_exam = StrategyMy(
         df,
         n,

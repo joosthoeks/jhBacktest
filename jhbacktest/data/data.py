@@ -6,7 +6,9 @@ import urllib2
 
 class Data(object):
     def __init__(self):
-        self.data = []
+        """
+        init
+        """
         
 
     def csv2df(self, csv_file_path):
