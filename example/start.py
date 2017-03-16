@@ -36,10 +36,10 @@ def main():
         result_list.append(result)
         n_list.append(n)
 
-    print (('############################################################'))
-    print best_result
-    print best_n
-    print (('############################################################'))
+    print ('############################################################')
+    print (best_result)
+    print (best_n)
+    print ('############################################################')
 
     # get analysis with best n:
     n = best_n
@@ -50,10 +50,10 @@ def main():
         slippage
     )
     strat_exam.run(True)
-    print (('############################################################'))
-    print (('best n: %s' % n))
-    print (('slippage: %s' % slippage))
-    print (('############################################################'))
+    print ('############################################################')
+    print ('best n: %s' % n)
+    print ('slippage: %s' % slippage)
+    print ('############################################################')
     strat_exam.get_analysis()
 
     # equity curve:

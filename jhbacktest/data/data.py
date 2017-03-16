@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 import pandas as pd
-import urllib2
+import urllib
 
 
 class Data(object):
@@ -50,7 +50,7 @@ class Data(object):
         Low_list = []
         Close_list = []
         Volume_list = []
-        csv_file = urllib2.urlopen(csv_file_url)
+        csv_file = urllib.urlopen(csv_file_url)
         reader = csv.DictReader(csv_file)
         for row in reader:
             datetime_list.append(row['datetime'])

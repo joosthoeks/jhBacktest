@@ -517,7 +517,7 @@ class Strategy(object):
             ]
         ]
 
-        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
+        print (tabulate(table, headers, tablefmt='grid', floatfmt='.4f'))
 
         headers = ['Description', 'Value']
 
@@ -536,7 +536,7 @@ class Strategy(object):
             ['Result (buy & hold) absolute', self.get_color(self.get_result_buy_and_hold_absolute())]
         ]
 
-        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
+        print (tabulate(table, headers, tablefmt='grid', floatfmt='.4f'))
 
         headers = ['Description', 'Value', 'Description', 'Value', 'Description', 'Value']
 
@@ -553,13 +553,11 @@ class Strategy(object):
             ]
         ]
 
-        print tabulate(table, headers, tablefmt='grid', floatfmt='.4f')
+        print (tabulate(table, headers, tablefmt='grid', floatfmt='.4f'))
 
     def get_color(self, value, split=0):
         color = 'red'
         if value > split:
             color = 'green'
         return tc.colored(value, color)
-
-
 
