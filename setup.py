@@ -18,9 +18,8 @@ setup(
         'jhbacktest.strategy',
     ],
     install_requires=[
-#        'scipy',
+#        'statistics',
 #        'numpy',
-#        'pandas',
 #        'tabulate',
 #        'termcolor',
 #        'matplotlib',

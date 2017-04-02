@@ -20,9 +20,8 @@ $ python start.py
 ```
 
 ### Dependencies
-* [SciPy](http://www.scipy.org/)
+* [statistics](https://docs.python.org/3/library/statistics.html)
 * [NumPy](http://www.numpy.org/)
-* [pandas](https://pypi.python.org/pypi/pandas)
 * [tabulate](https://pypi.python.org/pypi/tabulate)
 * [termcolor](https://pypi.python.org/pypi/termcolor)
 * [matplotlib](http://www.matplotlib.org/)

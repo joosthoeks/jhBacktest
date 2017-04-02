@@ -12,7 +12,6 @@ class Strategy(object):
         self.__df = df
         __data = Data()
         self.__df_np = __data.df2numpy(self.__df)
-        self.__df_pd = __data.numpy2pandas(self.__df_np)
         self.__df_index = -1
         self.__long_signal = False
         self.__short_signal = False
@@ -53,11 +52,6 @@ class Strategy(object):
             return self.__df_np[price]
         return self.__df_np[price][index]
  
-    def get_df_pd(self, price='Close', index=None):
-        if index is None:
-            return self.__df_pd[price]
-        return self.__df_pd[price][index]
-        
     def get_total_values_list(self):
         return self.__total_values_list
 
@@ -504,16 +498,6 @@ class Strategy(object):
                 'Std Dev', self.get_color(jhstats.get_std_dev_absolute(self.__total_values_list)),
                 'Std Dev', self.get_color(jhstats.get_std_dev_absolute(self.__profit_values_list)),
                 'Std Dev', self.get_color(jhstats.get_std_dev_absolute(self.__loss_values_list))
-            ],
-            [
-                'Skewness', self.get_color(jhstats.get_skewness_absolute(self.__total_values_list)),
-                'Skewness', self.get_color(jhstats.get_skewness_absolute(self.__profit_values_list)),
-                'Skewness', self.get_color(jhstats.get_skewness_absolute(self.__loss_values_list))
-            ],
-            [
-                'Kurtosis', self.get_color(jhstats.get_kurtosis_absolute(self.__total_values_list)),
-                'Kurtosis', self.get_color(jhstats.get_kurtosis_absolute(self.__profit_values_list)),
-                'Kurtosis', self.get_color(jhstats.get_kurtosis_absolute(self.__loss_values_list))
             ]
         ]
 

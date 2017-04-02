@@ -1,6 +1,4 @@
-import numpy as np
-import scipy as sp
-from scipy import stats
+import statistics
 
 
 def get_hitrate(values_t, values_p):
@@ -83,35 +81,23 @@ def get_mean_absolute(values_list):
     """
     Mean Absolute
     """
-    return sp.mean(values_list)
+    return statistics.mean(values_list)
 
 def get_median_absolute(values_list):
     """
     Median Absolute
     """
-    return sp.median(values_list)
+    return statistics.median(values_list)
 
 def get_variance_absolute(values_list):
     """
     Variance Absolute
     """
-    return sp.var(values_list)
+    return statistics.variance(values_list)
 
 def get_std_dev_absolute(values_list):
     """
     Standard Deviation Absolute
     """
-    return sp.std(values_list)
-
-def get_skewness_absolute(values_list):
-    """
-    Skewness Absolute
-    """
-    return stats.skew(values_list)
-
-def get_kurtosis_absolute(values_list):
-    """
-    Kurtosis Absolute
-    """
-    return stats.kurtosis(values_list)
+    return statistics.stdev(values_list)
 

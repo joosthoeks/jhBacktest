@@ -1,6 +1,5 @@
 import csv
 import numpy as np
-import pandas as pd
 import urllib
 
 
@@ -102,13 +101,6 @@ class Data(object):
             'Close': np.array(df['Close'], dtype='float'),
             'Volume': np.array(df['Volume'], dtype='int')
             }
-
-
-    def numpy2pandas(self, df_numpy):
-        """
-        NumPy DataFeed 2 Pandas DataFeed
-        """
-        return pd.Series(df_numpy)
 
 
     def df2heikin_ashi(self, df):
