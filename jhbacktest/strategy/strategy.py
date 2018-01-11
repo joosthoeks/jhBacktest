@@ -30,9 +30,13 @@ class Strategy(object):
         self.__long_pos_start = 0
         self.__long_pos_end = 0
         self.__long_pos_count = 0
+        self.__long_pos_open = 0
+        self.__long_pos_close = 0
         self.__short_pos_start = 0
         self.__short_pos_end = 0
         self.__short_pos_count = 0
+        self.__short_pos_open = 0
+        self.__short_pos_close = 0
         self.__last_trade_bar_index = 0
         self.__total_values_list = []
         self.__profit_values_list = []
@@ -98,6 +102,18 @@ class Strategy(object):
     def get_long_pos_count(self):
         return self.__long_pos_count
 
+    def get_long_pos_open(self):
+        return self.__long_pos_open
+
+    def set_long_pos_open(self, price):
+        self.__long_pos_open = price
+
+    def get_long_pos_close(self):
+        return self.__long_pos_close
+
+    def set_long_pos_close(self, price):
+        self.__long_pos_close = price
+
     def get_short_pos_start(self):
         return self.__short_pos_start
 
@@ -106,6 +122,18 @@ class Strategy(object):
 
     def get_short_pos_count(self):
         return self.__short_pos_count
+
+    def get_short_pos_open(self):
+        return self.__short_pos_open
+
+    def set_short_pos_open(self, price):
+        self.__short_pos_open = price
+
+    def get_short_pos_close(self):
+        return self.__short_pos_close
+
+    def set_short_pos_close(self, price):
+        self.__short_pos_close = price
 
     def get_last_trade_bar_index(self):
         return self.__last_trade_bar_index
@@ -145,12 +173,6 @@ class Strategy(object):
 
     def get_bar_down_count(self):
         return self.__bar_down_count
-
-    def get_long_pos_count(self):
-        return self.__long_pos_count
-
-    def get_short_pos_count(self):
-        return self.__short_pos_count
 
     def get_max_bar_drawdown_absolute(self):
         if len(self.__bar_drawdown_list) == 0:
@@ -246,6 +268,8 @@ class Strategy(object):
                 self.__loss_values_list.append(result)
             self.__long_pos_start = 0
             self.__long_pos_end = 0
+            self.__long_pos_open = 0
+            self.__long_pos_close = 0
 
         if self.__short_pos_start is not 0 and self.__short_pos_end is not 0:
             result = self.__short_pos_start - self.__short_pos_end
@@ -257,6 +281,8 @@ class Strategy(object):
                 self.__loss_values_list.append(result)
             self.__short_pos_start = 0
             self.__short_pos_end = 0
+            self.__short_pos_open = 0
+            self.__short_pos_close = 0
 
         self.__equity_curve += result
         self.__equity_curve_list.append(self.__equity_curve)
@@ -328,17 +354,23 @@ class Strategy(object):
 
     def enter_long_pos(self, bar, print_output):
         self.__long_pos = True
-        self.__long_pos_start = bar['Open']
+        if self.__long_pos_open > 0:
+            self.__long_pos_start = self.__long_pos_open
+        else:
+            self.__long_pos_start = bar['Open']
         self.__long_pos_count += 1
         self.set_pos_long('enter')
         self.set_last_trade_bar_index(self.get_df_index())
         if print_output:
             print ('%s ################################################### ENTER LONG AT %s #########################' % \
-            (bar['datetime'], self.get_format_str(bar['Open'])))
+            (bar['datetime'], self.get_format_str(self.__long_pos_start)))
 
     def exit_long_pos(self, bar, print_output):
         self.__long_pos = False
-        self.__long_pos_end = bar['Open']
+        if self.__long_pos_close > 0:
+            self.__long_pos_end = self.__long_pos_close
+        else:
+            self.__long_pos_end = bar['Open']
         self.set_pos_long('exit')
         self.set_last_trade_bar_index(0)
         profit = self.__long_pos_end - self.__long_pos_start
@@ -347,21 +379,27 @@ class Strategy(object):
             color = 'green'
         if print_output:
             print ('%s ################################################### EXIT LONG AT %s ########################## PROFIT: %s' % \
-            (bar['datetime'], self.get_format_str(bar['Open']), tc.colored(profit, color)))
+            (bar['datetime'], self.get_format_str(self.__long_pos_end), tc.colored(profit, color)))
 
     def enter_short_pos(self, bar, print_output):
         self.__short_pos = True
-        self.__short_pos_start = bar['Open']
+        if self.__short_pos_open > 0:
+            self.__short_pos_start = self.__short_pos_open
+        else:
+            self.__short_pos_start = bar['Open']
         self.__short_pos_count += 1
         self.set_pos_short('enter')
         self.set_last_trade_bar_index(self.get_df_index())
         if print_output:
             print ('%s ################################################### ENTER SHORT AT %s ########################' % \
-            (bar['datetime'], self.get_format_str(bar['Open'])))
+            (bar['datetime'], self.get_format_str(self.__short_pos_start)))
 
     def exit_short_pos(self, bar, print_output):
         self.__short_pos = False
-        self.__short_pos_end = bar['Open']
+        if self.__short_pos_close > 0:
+            self.__short_pos_end = self.__short_pos_close
+        else:
+            self.__short_pos_end = bar['Open']
         self.set_pos_short('exit')
         self.set_last_trade_bar_index(0)
         profit = self.__short_pos_start - self.__short_pos_end
@@ -370,7 +408,7 @@ class Strategy(object):
             color = 'green'
         if print_output:
             print ('%s ################################################### EXIT SHORT AT %s ######################### PROFIT: %s' % \
-            (bar['datetime'], self.get_format_str(bar['Open']), tc.colored(profit, color)))
+            (bar['datetime'], self.get_format_str(self.__short_pos_end), tc.colored(profit, color)))
 
     def check_do_long_pos(self, bar, print_output):
         # check and do long position:
