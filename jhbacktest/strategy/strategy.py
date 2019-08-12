@@ -330,7 +330,7 @@ class Strategy(object):
         return result
 
     def get_format_str(self, value):
-        return ('%.2f' % round(value, 2))
+        return ('%.8f' % round(value, 8))
 
     def enter_long_signal(self, bar, print_output):
         self.__long_signal = True

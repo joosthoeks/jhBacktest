@@ -19,14 +19,18 @@ def get_equity_curve(x_list, y1_list, y2_list, y3_list):
     par1.set_ylabel('Equity Curve')
     par2.set_ylabel('Open Equity Curve')
 
-    x = [dt.strptime(d, '%Y%m%d').date() for d in x_list]
+    x = [dt.strptime(d, '%Y-%m-%d').date() for d in x_list]
 
     p1, = host.plot(x, y1_list, color='b')
     p2, = par1.plot(x, y2_list, color='g')
     p3, = par2.plot(x, y3_list, color='r')
 
-    par1.set_ylim(-40, 400)
-    par2.set_ylim(-40, 400)
+    ylim_min = min([min(y1_list), min(y2_list), min(y3_list)])
+    ylim_max = max([max(y1_list), max(y2_list), max(y3_list)])
+
+    host.set_ylim(ylim_min, ylim_max)
+    par1.set_ylim(ylim_min, ylim_max)
+    par2.set_ylim(ylim_min, ylim_max)
 
     host.axis['left'].label.set_color(p1.get_color())
     par1.axis['right'].label.set_color(p2.get_color())
@@ -57,9 +61,9 @@ def get_optimization_curve(x_list, y_list):
     plt.show()
 
 def get_benchmark_vs_result(x_list, y1_list, y2_list):
-    x = [dt.strptime(d, '%Y%m%d').date() for d in x_list]
+    x = [dt.strptime(d, '%Y-%m-%d').date() for d in x_list]
 
-    plt.gca().set_color_cycle(['blue', 'green'])
+#    plt.gca().set_color_cycle(['blue', 'green'])
 
     plt.plot(x, y1_list)
     plt.plot(x, y2_list)
