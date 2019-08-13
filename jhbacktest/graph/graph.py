@@ -5,7 +5,7 @@ import mpl_toolkits.axisartist as AA
 from mpl_toolkits.axes_grid1 import host_subplot
 
 
-def get_equity_curve(x_list, y1_list, y2_list, y3_list):
+def get_equity_curve(x_list, y1_list, y2_list, y3_list, date_format='%Y%m%d'):
     host = host_subplot(111, axes_class=AA.Axes)
     par1 = host.twinx()
     par2 = host.twinx()
@@ -19,7 +19,7 @@ def get_equity_curve(x_list, y1_list, y2_list, y3_list):
     par1.set_ylabel('Equity Curve')
     par2.set_ylabel('Open Equity Curve')
 
-    x = [dt.strptime(d, '%Y-%m-%d').date() for d in x_list]
+    x = [dt.strptime(d, date_format).date() for d in x_list]
 
     p1, = host.plot(x, y1_list, color='b')
     p2, = par1.plot(x, y2_list, color='g')
@@ -36,7 +36,7 @@ def get_equity_curve(x_list, y1_list, y2_list, y3_list):
     par1.axis['right'].label.set_color(p2.get_color())
     par2.axis['right'].label.set_color(p3.get_color())
 
-    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(date_format))
 #    plt.gca().xaxis.set_major_locator(mdates.DayLocator())
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     plt.gcf().autofmt_xdate()
@@ -60,8 +60,8 @@ def get_optimization_curve(x_list, y_list):
     plt.draw()
     plt.show()
 
-def get_benchmark_vs_result(x_list, y1_list, y2_list):
-    x = [dt.strptime(d, '%Y-%m-%d').date() for d in x_list]
+def get_benchmark_vs_result(x_list, y1_list, y2_list, date_format='%Y%m%d'):
+    x = [dt.strptime(d, date_format).date() for d in x_list]
 
 #    plt.gca().set_color_cycle(['blue', 'green'])
 
@@ -70,7 +70,7 @@ def get_benchmark_vs_result(x_list, y1_list, y2_list):
     
     plt.legend(['Benchmark', 'Result'], loc='upper left')
 
-    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(date_format))
 #    plt.gca().xaxis.set_major_locator(mdates.DayLocator())
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     plt.gcf().autofmt_xdate()
