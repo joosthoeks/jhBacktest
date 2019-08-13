@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='jhBacktest',
-    version='20190812.0',
+    version='20190813.0',
     description='Backtest and analysis trading strategy with Python',
     keywords='backtest analysis trading strategy',
     url='https://github.com/joosthoeks/jhBacktest',
