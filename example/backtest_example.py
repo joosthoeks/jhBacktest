@@ -1,24 +1,21 @@
-from jhbacktest.strategy import Strategy
+
+
+from jhbacktest.backtest import Backtest
 
 import jhtalib as jhta
 
 
-class StrategyMy(Strategy):
+class BacktestExample(Backtest):
 
-    def __init__(self, df, n, slippage=0):
+    def __init__(self, df, n):
         """
         set trade indicator
         """
-        Strategy.__init__(self, df, slippage)
+        super().__init__(df)
 
         self._indicator = jhta.SMA(self.get_df(), n)
 #        self._indicator = jhta.MOM(self.get_df(), n)
 
-#    def on_bars(self, bar, print_output):
-        """
-        modify if you wish
-        """
-        
     def check_enter_long_signal(self, bar):
         """
         set enter long trade rules

@@ -1,0 +1,16 @@
+
+
+# Install requirements:
+# $ pip3 install -r requirements.txt
+
+# $ pip3 install matplotlib
+matplotlib
+
+# $ pip3 install tabulate
+tabulate
+
+# $ pip3 install termcolor
+termcolor
+
+# $ git clone [-b branch-name] https://github.com/joosthoeks/jhTAlib.git
+git+git://github.com/joosthoeks/jhTAlib@master

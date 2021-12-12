@@ -1,18 +1,18 @@
-#!/usr/bin/env python
 
-from jhbacktest.data import *
-import jhbacktest.graph as jhgraph
-import jhbacktest.stats as jhstats
-from strategy_example import StrategyMy
+
+# Import Built-Ins:
+from pprint import pprint as pp
+
+# Import Third-Party:
+import jhtalib as jhta
+
+# Import Homebrew:
+from backtest_example import BacktestExample
 
 
 def main():
-    # set df:
-    data = Data()
-    df = data.csv2df('data/data.csv')
-
-    # set slippage:
-    slippage = 0
+    df = jhta.CSV2DF('data/data.csv')
+#    pp (df)
 
     # set best n:
     best_result = -1000000
@@ -20,14 +20,10 @@ def main():
     result_list = []
     n_list = []
     for n in range(2, 200):
-        strat_exam = StrategyMy(
-            df,
-            n,
-            slippage
-        )
-        strat_exam.run(False)
+        backtest_example = BacktestExample(df, n)
+        backtest_example.run()
 
-        result = jhstats.get_absolute(strat_exam.get_total_values_list())
+        result = sum(backtest_example.get_trades_total())
 
         if result > best_result:
             best_result = result
@@ -36,36 +32,25 @@ def main():
         result_list.append(result)
         n_list.append(n)
 
-    print ('############################################################')
-    print (best_result)
-    print (best_n)
-    print ('############################################################')
+    pp ('############################################################')
+    pp (best_result)
+    pp (best_n)
+    pp ('############################################################')
 
     # get analysis with best n:
     n = best_n
 #    n = 4
-    strat_exam = StrategyMy(
-        df,
-        n,
-        slippage
-    )
-    strat_exam.run(True)
-    print ('############################################################')
-    print ('best n: %s' % n)
-    print ('slippage: %s' % slippage)
-    print ('############################################################')
-    strat_exam.get_analysis()
+    pp ('############################################################')
+    pp ('best n: {}'.format(n))
+    pp ('best result: {}'.format(best_result))
+    pp ('############################################################')
 
-    # equity curve:
-    jhgraph.get_equity_curve(strat_exam.get_df()['datetime'], strat_exam.get_df()['Close'], strat_exam.get_equity_curve_list(), strat_exam.get_open_equity_curve_list())
-
-    # optimization curve:
-    jhgraph.get_optimization_curve(n_list, result_list)
-
-    # benchmark vs result:
-    jhgraph.get_benchmark_vs_result(strat_exam.get_df()['datetime'], strat_exam.get_benchmark_list(), strat_exam.get_equity_curve_list())
-
+    backtest_example = BacktestExample(df, n)
+    backtest_example.run()
+    backtest_example.save('data/tmp.csv')
+    backtest_example.print_result()
+    backtest_example.plot_optimization_curve(n_list, result_list)
+    backtest_example.plot_benchmark_vs_result('%Y%m%d')
 
 if __name__ == '__main__':
     main()
-
